@@ -4,26 +4,13 @@ from django.contrib.models import User
 # Create your models here.
 class Enseignement(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
     audio = models.FileField(uploads_to="enseignements/")
     categorie = models.ForeignKey(Category,on_delete=models.PROTECT)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(verbose_name="Date de parution", default=timezone.now)
     titre = models.CharField(max_length=40)
     
     def __str__(self):
-        return f"{self.name} {self.audio} {self.categorie} "
-    
-    
-class Homelie(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    audio = models.FileField(uploads_to="Homelies/")
-    categorie = models.ForeignKey(Category,on_delete=models.PROTECT)
-    date = models.DateTimeField(auto_now_add=True)
-    titre = models.CharField(max_length=40)
-    
-    def __str__(self):
-        return f"{self.name} {self.audio} {self.categorie} "
+        return f"Enseignement du {self.date}comme titre:{self.titre} categorie: {self.categorie} "
     
 class Categorie(models.Model):
     id = models.AutoField(primary_key=True)
