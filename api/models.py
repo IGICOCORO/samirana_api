@@ -3,6 +3,7 @@ from django.contrib.models import User
 
 # Create your models here.
 class Enseignement(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     audio = models.FileField(uploads_to="enseignements/")
     categorie = models.ForeignKey(Category,on_delete=models.PROTECT)
@@ -14,6 +15,7 @@ class Enseignement(models.Model):
     
     
 class Homelie(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     audio = models.FileField(uploads_to="Homelies/")
     categorie = models.ForeignKey(Category,on_delete=models.PROTECT)
@@ -24,6 +26,7 @@ class Homelie(models.Model):
         return f"{self.name} {self.audio} {self.categorie} "
     
 class Categorie(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40, unique=True)
     image = models.ImageField(null=True, blank=True, upload_to="categorie/")
     
@@ -31,6 +34,7 @@ class Categorie(models.Model):
         return self.name
 
 class Annonce(models.Model):
+    id = models.AutoField(primary_key=True)
     titre = models.CharField(unique=True, max_length=100)
     categorie = models.ForeignKey('Categorie', null=True, on_delete=models.SET_NULL)
     author = models.ForeignKey('Profile', null=True, on_delete=models.SET_NULL)
@@ -43,6 +47,7 @@ class Annonce(models.Model):
     
 
 class Profile(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     moi = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to="profile/")
